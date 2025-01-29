@@ -4,40 +4,48 @@
 
 ### 1., What is ECMAScript? What is the difference between Javascript & ECMAScript?
 
-### What is ECMAScript?
+-   JavaScript implements with environment-specific features, while ECMAScript is a standardized specification ensuring compatibility across implementations and settings.
 
-ECMAScript (ES) is a standardized scripting language specification that forms the foundation for JavaScript. It is maintained by **ECMA International** through the **TC39** (Technical Committee 39) and defines the core features, syntax, and behavior of scripting languages such as JavaScript, JScript, and ActionScript.
+**ECMAScript (ES)** is a standardized scripting language specification on which **JavaScript** is based.
 
-ECMAScript provides a standardized way for different JavaScript engines (such as **V8 (Chrome, Node.js), SpiderMonkey (Firefox), and JavaScriptCore (Safari)**) to implement and execute JavaScript code.
+**Difference:**
 
-The **ECMAScript versions** include:
+-   **ECMAScript** is the specification (set of rules).
+-   **JavaScript** is the implementation (actual programming language following ECMAScript).
+-   Think of ECMAScript as the recipe (standard) and JavaScript as the cooked dish (implementation).
 
--   **ES5 (2009)**: Introduced strict mode, JSON support, `Array.prototype.forEach()`, etc.
--   **ES6 (2015, ECMAScript 2015)**: Introduced `let`, `const`, arrow functions, classes, template literals, promises, modules, etc.
--   **ES7 to ES13 (2016-2022)**: Added `async/await`, optional chaining, nullish coalescing, and more.
--   **Latest versions (ES14, ES15, ...)**: Continue to evolve with new proposals and enhancements.
+JavaScript extends ECMAScript with additional features like DOM manipulation. :rocket:
 
 ---
 
-### Difference Between JavaScript & ECMAScript
-
-| Feature            | JavaScript                                                                                 | ECMAScript                                                                    |
-| ------------------ | ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
-| **Definition**     | A programming language used for web development, scripting, and application logic.         | A standard that defines the core rules and features of JavaScript.            |
-| **Role**           | JavaScript implements ECMAScript and extends it with APIs (like DOM, BOM, Web APIs).       | ECMAScript provides the syntax, rules, and behavior that JavaScript follows.  |
-| **Scope**          | Includes additional features like DOM manipulation, event handling, and Web APIs.          | Focuses only on core language features (variables, functions, objects, etc.). |
-| **Implementation** | Used in browsers, Node.js, Deno, etc.                                                      | Implemented by JavaScript engines (e.g., V8, SpiderMonkey, JavaScriptCore).   |
-| **Updates**        | Follows ECMAScript standards but can include additional features specific to environments. | Regularly updated by TC39 to introduce new language features.                 |
-
-### Analogy
-
-Think of **ECMAScript** as the **recipe (standard)** and **JavaScript** as the **cooked dish (implementation)**. JavaScript follows the ECMAScript rules but adds extra ingredients (such as the DOM API for manipulating web pages) to make it functional in browsers.
-
-Would you like examples of ECMAScript features introduced in different versions? 😊
-
 ### 2., Explain the concept of "block scoping" introduced in ES6. How does it differ from function scoping?
 
--   block scoping is used in for loops for example,
+### **Block Scoping (ES6) vs. Function Scoping**
+
+**Block scoping** (with `let` and `const`) restricts variable access to the block `{}` where it is declared, whereas **function scoping** (with `var`) allows access throughout the entire function.
+
+#### **Key Differences**
+
+| Feature          | Function Scoping (`var`)                             | Block Scoping (`let` & `const`)                                                 |
+| ---------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------- |
+| **Scope**        | Limited to the **function** where it's declared.     | Limited to the **block `{}` (if, loops, etc.)** where it's declared.            |
+| **Lifetime**     | Exists throughout the **entire function execution**. | Exists **only within the block** and is **destroyed** after the block executes. |
+| **Hoisting**     | **Hoisted** but initialized as `undefined`.          | **Hoisted**, but in a **Temporal Dead Zone (TDZ)** until initialized.           |
+| **Redefinition** | Can be re-declared in the same function.             | Cannot be re-declared in the same block.                                        |
+
+#### **Example**
+
+```js
+function test() {
+    if (true) {
+        var x = 10; // Function-scoped (accessible outside block)
+        let y = 20; // Block-scoped (only inside this block)
+    }
+    console.log(x); // ✅ Works (10)
+    console.log(y); // ❌ ReferenceError (y is block-scoped)
+}
+test();
+```
 
 ### 3., What are template literals in ES6 and how do they improve string manipulation in JavaScript?
 
