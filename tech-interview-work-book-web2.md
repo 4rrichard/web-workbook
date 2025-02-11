@@ -49,19 +49,122 @@ test();
 
 ### 3., What are template literals in ES6 and how do they improve string manipulation in JavaScript?
 
--   answer
+**Template literals**, introduced in ES6, use backticks (`` ` ``) instead of quotes, allowing for **easier string manipulation** in JavaScript.
+
+### Key Benefits:
+
+-   **String Interpolation:** Embed variables and expressions using `${}`
+
+```javascript
+let name = "Jack";
+console.log(`Hello, ${name}!`); // Hello, Jack!
+```
+
+-   **Multi-line Strings:** No need for `\n` or concatenation
+
+```javascript
+let message = `This is
+a multi-line string.`;
+```
+
+-   **Expression Evaluation:** Directly evaluate expressions
+
+```javascript
+let a = 10,
+    b = 20;
+console.log(`Sum: ${a + b}`); // Sum: 30
+```
+
+-   **Tagged Templates:** Process strings with functions
+
+```javascript
+function tag(strings, value) {
+    return `${strings[0]}${value.toUpperCase()}`;
+}
+console.log(tag`Hello, ${"jack"}!`); // Hello, JACK!
+```
 
 ### 4., Explain the concept of "destructuring assignment" in ES6. How does it simplify variable assignment and object/array manipulation.
 
--   answer
+-   **Destructuring assignment** is an ES6 feature that allows unpacking values from arrays or properties from objects into distinct variables in a concise way.
+
+#### Example with Arrays:
+
+```javascript
+const numbers = [1, 2, 3];
+const [a, b, c] = numbers;
+console.log(a, b, c); // 1 2 3
+```
+
+#### Example with Objects:
+
+```javascript
+const person = { name: "Jack", age: 25 };
+const { name, age } = person;
+console.log(name, age); // Jack 25
+```
 
 ### 5., What is the "spread operator" in ES6 and how can it be used to manipulate arrays and objects more effectively?
 
--   answer
+The **spread operator (`...`)** allows expanding arrays or objects into individual elements, making them easier to manipulate.
+
+#### Example with Arrays:
+
+```javascript
+const arr1 = [1, 2, 3];
+const arr2 = [...arr1]; // Creates a new copy
+console.log(arr2); // [1, 2, 3]
+```
+
+```javascript
+const arrA = [1, 2];
+const arrB = [3, 4];
+const merged = [...arrA, ...arrB];
+console.log(merged); // [1, 2, 3, 4]
+```
+
+#### Example with Objects:
+
+```javascript
+const obj1 = { a: 1, b: 2 };
+const obj2 = { ...obj1, c: 3 };
+console.log(obj2); // { a: 1, b: 2, c: 3 }
+```
+
+```javascript
+const objA = { name: "Jack" };
+const objB = { age: 25 };
+const person = { ...objA, ...objB };
+console.log(person); // { name: "Jack", age: 25 }
+```
 
 ### 6., How does ES6 introduce the concept of "default function parameters"? Provide an example of using default parameters in a function.
 
--   answer
+S6 introduces **default function parameters**, allowing functions to assign default values to parameters when no argument is provided. This helps prevent `undefined` errors and reduces the need for manual checks.
+
+---
+
+#### Example with a Single Parameter:
+
+```javascript
+function greet(name = "Guest") {
+    console.log(`Hello, ${name}!`);
+}
+
+greet(); // Output: Hello, Guest!
+greet("Jack"); // Output: Hello, Jack!
+```
+
+#### Example with Multiple Parameters:
+
+```javascript
+function calculatePrice(price, tax = 0.1) {
+    return price + price * tax;
+}
+
+console.log(calculatePrice(100)); // 110 (default tax applied)
+console.log(calculatePrice(100, 0.2)); // 120 (custom tax applied)
+```
 
 ### 7., Explain the concept of "modules" introduced in ES6. How do they improve code organization and reusability in JavaScript?
 
@@ -350,3 +453,7 @@ test();
 ### 6., How does data flow in the MERN stack architecture? Explain how the frontend, built with React.js, communicates with the backend, developed with Node.js and Express.js, to handle client requests and serve data from the MongoDB database.
 
 -   answer
+
+```
+
+```
