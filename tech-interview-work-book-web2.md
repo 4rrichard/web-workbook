@@ -992,100 +992,458 @@ document.getElementById("addBtn").addEventListener("click", () => {
 
 ### 8., Explain the concept of spreading props in React. How can the spread operator be used to pass multiple props from a parent component to a child component in a concise manner?
 
--   answer
+**Prop spreading** allows you to pass multiple props at once using the **spread operator (`...`)** for cleaner and more concise code.
+
+✅ **Example:**
+
+```jsx
+const props = { name: "John", age: 30 };
+<Profile {...props} />;
+```
+
+This is equivalent to:
+
+```jsx
+<Profile name="John" age="30" />
+```
+
+✅ Useful for **reusable components** and **dynamic prop passing**.
 
 ### 9., Explain the concept of default props (with ES6 JS syntax) in React. How can you define default values for props in a component to handle cases where the prop value is not explicitly passed?
 
--   answer
+**Default props** are fallback values used when a prop is not passed to a component.
+
+✅ **ES6 Syntax:**
+You can define defaults directly in the function parameters:
+
+```jsx
+function Greeting({ name = "Guest" }) {
+    return <h1>Hello, {name}!</h1>;
+}
+```
+
+✅ Helps avoid **undefined values** and keeps components more **robust and predictable**.
 
 ### 10., Explain the immutability principle when working with props and states in React. Why is it important to avoid directly modifying prop values within a component, and what are some best practices for maintaining immutability?
 
--   answer
+In React, **props and state should not be modified directly**. Instead, always create a **new copy** when updating state to maintain **immutability**.
+
+✅ **Why it matters:**  
+Immutability helps React detect changes and trigger efficient re-renders.
+
+✅ **Best practices:**
+
+-   Use spread syntax (`...`) to update objects or arrays
+-   Never modify props directly
 
 ### 11., How does React.js handle state management? Explain the concept of state and how it differs from props.
 
--   answer
+**State** holds dynamic, local data in a component and can change over time using hooks like `useState`.  
+**Props** are read-only values passed from parent to child.
+
+✅ **Key Difference:**
+
+-   **State**: Internal, changeable.
+-   **Props**: External, read-only.
 
 ### 12., What are React hooks? Explain the purpose and benefits of hooks like useState, useEffect in React.js.
 
--   answer
+**React Hooks** are functions that let you use state and other React features in functional components without writing class components.
+
+-   **`useState`** allows you to add and manage local state in functional components.
+-   **`useEffect`** lets you perform side effects (e.g., data fetching, subscriptions, DOM updates) in components.
+
+✅ **Benefits of Hooks:**
+
+-   Cleaner and more readable code
+-   Reusable logic through custom hooks
+-   No need for class components
+-   Better separation of concerns and component lifecycle handling
 
 ### 13., Explain the concept of virtual DOM reconciliation in React.js. How does React efficiently update and render components by performing minimal DOM manipulations?
 
--   answer
+The **Virtual DOM** is a lightweight copy of the real DOM that React uses to optimize rendering. When the state or props change, React creates a new virtual DOM and compares it with the previous one using a process called **reconciliation**.
+
+React identifies the **differences (diffing)** between the old and new virtual DOM and updates only the changed parts in the **real DOM**, instead of re-rendering everything.
+
+✅ This approach minimizes costly DOM manipulations and ensures better performance and a smoother user experience.
 
 ### 14., Explain how to manage complex state objects with useState. Explain techniques like object spreading or merging to update specific properties within an object state.
 
--   answer
+When managing complex state objects with `useState`, you should **avoid directly mutating the state**. Instead, use techniques like **object spreading** to update specific properties while keeping the rest unchanged.
+
+✅ Example using object spread syntax:
+
+```jsx
+const [user, setUser] = useState({ name: "Alice", age: 25 });
+
+setUser({ ...user, age: 26 }); // updates only the age, keeps the name
+```
+
+This ensures a **new object reference**, so React can detect the change and re-render correctly.
+
+You can also update **deeply nested properties** by combining multiple spread operators or consider using **state management tools like `useReducer`** for more complex state structures.
 
 ### 15., Why is it important to provide a new array as an argument to the useState hook when adding an item to an existing array?
 
--   answer
+In React, state updates must be **immutable** to ensure React detects changes and re-renders the component. Directly modifying the existing array (e.g., using `push()`) does not create a new reference, so React may not recognize the update.
+
+✅ Instead, create a **new array** using spread syntax or array methods:
+
+```jsx
+setItems([...items, newItem]);
+```
 
 ### 16., How does conditional rendering work in React? Explain the different techniques and approaches available to conditionally render components or content based on certain conditions or state values. How can it be used to control the visibility or behavior of components based on user interactions or other dynamic conditions?
 
--   answer
+Conditional rendering in React means displaying components or content based on certain conditions (e.g., state or props). It allows dynamic control of what gets rendered in the UI.
+
+#### ✅ Common Techniques:
+
+-   **if/else statements** (outside JSX):
+
+```jsx
+if (isLoggedIn) {
+    return <Dashboard />;
+} else {
+    return <Login />;
+}
+```
+
+#### ✅ Common Techniques:
+
+-   **Ternary operator (inline in JSX):**
+
+```jsx
+{
+    isLoggedIn ? <Dashboard /> : <Login />;
+}
+```
+
+-   **Logical AND (`&&`) operator (for rendering something only if a condition is true):**
+
+```jsx
+{
+    isAdmin && <AdminPanel />;
+}
+```
+
+-   **Conditional functions or return statements:**  
+    Used in render methods or functional components to decide what to return based on conditions.
+
+### 📌 Use Cases:
+
+-   Show/hide elements based on user interaction
+-   Render loading spinners or error messages
+-   Display different content based on authentication status or app state
 
 ### 17., How can you create a select input element in React? How does it differ from the html's select tag? Can you show an example of a controlled and an uncontrolled select element with default value setting?
 
--   answer
+In React, you create a `<select>` input similarly to HTML, but typically use it as a **controlled component**, where the selected value is managed by React state. Unlike plain HTML, React requires explicit `value` and `onChange` props for controlled inputs.
 
-## Database
+#### ✅ Controlled Select Example:
 
-### 1., What is MongoDB, and how does it differ from traditional relational databases? Explain the key features and advantages of MongoDB as a NoSQL database solution.
+```jsx
+import { useState } from "react";
 
--   answer
+function ControlledSelect() {
+    const [option, setOption] = useState("apple");
 
-### 2., Explain the concept of collections and documents in MongoDB? How does MongoDB store data, and how is it organized within collections and documents.
-
--   answer
-
-### 3., What is Mongoose.js, and how does it simplify working with MongoDB in a Node.js environment? Explain the key features and benefits of using Mongoose.js.
-
--   answer
-
-### 4., How do you define and create schemas in Mongoose.js? Explain how schemas define the structure and validation rules for documents in MongoDB collections.
-
--   answer
-
-### 5., Explain the different types of Mongoose.js data modeling techniques. How can you define relationships between MongoDB collections using Mongoose.js, such as one-to-one, one-to-many, and many-to-many relationships?
-
--   answer
-
-### 6., What are the available options for querying and manipulating data using Mongoose.js? Explain how to perform CRUD operations (create, read, update, delete) using Mongoose.js methods and queries.
-
--   answer
-
-### 7., Explain the process of connecting to a MongoDB database using Mongoose.js. How can you configure and establish a connection to a MongoDB server using Mongoose.js in a Node.js application?
-
--   answer
-
-## MERN
-
-### 1., Explain the concept of React Router. How does it enable client-side routing in React.js applications and facilitate the creation of multi-page-like experiences?
-
--   answer
-
-### 2., Explain the concept of server-side routing in Express.js. How does Express handle incoming requests and route them to the appropriate API endpoints or route handlers?
-
--   answer
-
-### 3., What is the MERN stack? Explain the individual components of the MERN stack and their role in building web applications.
-
--   answer
-
-### 4., Explain how does a proxy works during React development. How can you tell the webpack dev server to proxy the requests to your backend? What kind of URLs you have to use in the fetch in your JS code, if you want to use the proxy.
-
--   answer
-
-### 5., Explain the advantages and benefits of using the MERN stack for web development. How does each component of the MERN stack contribute to the development process and overall efficiency of building modern web applications?
-
--   answer
-
-### 6., How does data flow in the MERN stack architecture? Explain how the frontend, built with React.js, communicates with the backend, developed with Node.js and Express.js, to handle client requests and serve data from the MongoDB database.
-
--   answer
-
+    return (
+        <select value={option} onChange={(e) => setOption(e.target.value)}>
+            <option value="apple">Apple</option>
+            <option value="banana">Banana</option>
+            <option value="orange">Orange</option>
+        </select>
+    );
+}
 ```
 
+```js
+function UncontrolledSelect() {
+    return (
+        <select defaultValue="banana">
+            <option value="apple">Apple</option>
+            <option value="banana">Banana</option>
+            <option value="orange">Orange</option>
+        </select>
+    );
+}
 ```
+
+### 🔑 Key Difference
+
+-   **Controlled Components**: React handles the selected value via **state** using `value` and `onChange` props. This provides better control and synchronization with other UI elements.
+
+-   **Uncontrolled Components**: The DOM manages the value internally using `defaultValue`. React does **not track** the changes unless you manually access the value using **refs**.
+
+# -- Database --
+
+## 1., What is MongoDB, and how does it differ from traditional relational databases? Explain the key features and advantages of MongoDB as a NoSQL database solution.
+
+-   MongoDB is a NoSQL, document-oriented database that stores data in flexible, JSON-like BSON format instead of tables and rows like traditional relational databases (RDBMS).
+
+### **Key Differences from RDBMS:**
+
+-   **Schema-less**: No fixed table structure; documents can have varying fields.
+-   **Scalability**: Horizontally scalable via sharding, unlike most RDBMS that scale vertically.
+-   **Flexible Queries**: Supports rich queries, indexing, and aggregation.
+-   **No Joins**: Uses embedded documents instead of costly joins.
+
+### **Advantages of MongoDB:**
+
+✅ **Fast Read/Write**: Optimized for high-speed data access.  
+✅ **Flexible & Scalable**: Ideal for big data, real-time apps, and distributed systems.  
+✅ **JSON-like Storage**: Easier integration with JavaScript and modern web apps.  
+✅ **Automatic Failover**: Built-in replication ensures high availability.
+
+---
+
+## 2., Explain the concept of collections and documents in MongoDB? How does MongoDB store data, and how is it organized within collections and documents.
+
+-   In MongoDB, **collections** and **documents** replace tables and rows in relational databases.
+
+### **Concepts:**
+
+-   **Document**: A JSON-like BSON object containing key-value pairs (e.g., `{ name: "USA", population: 331000000 }`).
+-   **Collection**: A group of related documents, similar to a table but without a fixed schema.
+
+### **Data Storage & Organization:**
+
+-   Data is stored in **documents**, allowing flexibility in structure.
+-   **Collections** hold multiple documents with similar data types but no enforced schema.
+-   MongoDB uses an **index-based** storage engine for efficient retrieval.
+-   Documents can be **embedded** (nested) or **referenced** (linked) for relationships.
+
+---
+
+## 3., What is Mongoose.js, and how does it simplify working with MongoDB in a Node.js environment? Explain the key features and benefits of using Mongoose.js.
+
+-   ### **Mongoose.js**
+    Mongoose is an **ODM (Object Data Modeling) library** for MongoDB in **Node.js**, providing schema-based structure and validation for MongoDB documents.
+
+### **Key Features:**
+
+✅ **Schema Definition** – Defines strict data models using schemas.  
+✅ **Validation** – Built-in data validation before saving to the database.  
+✅ **Middleware (Hooks)** – Pre/post-processing of data (e.g., hashing passwords).  
+✅ **Query Building** – Simplifies CRUD operations with an intuitive API.  
+✅ **Virtuals & Methods** – Adds computed properties and custom methods.
+
+### **Benefits of Using Mongoose:**
+
+✔ **Easier Data Management** – Structured and readable code.  
+✔ **Better Data Integrity** – Prevents inconsistent data with schemas.  
+✔ **Async/Await Support** – Handles queries efficiently in modern JS.  
+✔ **Relationship Handling** – Supports document references and population.
+
+---
+
+## 4., How do you define and create schemas in Mongoose.js? Explain how schemas define the structure and validation rules for documents in MongoDB collections.
+
+✅ In Mongoose, **schemas define the structure and validation rules** for documents in a MongoDB collection.
+
+```js
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
+const UserSchema = new Schema({
+    name: { type: String, required: true },
+    age: { type: Number, min: 0 },
+    email: { type: String, unique: true },
+});
+```
+
+✅ A **model** is then created from the schema:
+
+```js
+const User = mongoose.model("User", UserSchema);
+```
+
+Schemas help enforce **data types, constraints, and validation rules** before saving data.
+
+---
+
+## 5., Explain the different types of Mongoose.js data modeling techniques. How can you define relationships between MongoDB collections using Mongoose.js, such as one-to-one, one-to-many, and many-to-many relationships?
+
+✅ Mongoose supports various **data modeling techniques** to define relationships:
+
+-   **One-to-One:** Use a field with `type: mongoose.Schema.Types.ObjectId` referencing another model.
+
+```js
+const ProfileSchema = new Schema({
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+});
+```
+
+-   **One-to-Many:** Store an array of ObjectIds referencing another model.
+
+```js
+const BlogSchema = new Schema({
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
+});
+```
+
+-   **Many-to-Many:** Both models contain arrays of references to each other.
+
+```js
+const StudentSchema = new Schema({
+    courses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
+});
+
+const CourseSchema = new Schema({
+    students: [{ type: mongoose.Schema.Types.ObjectId, ref: "Student" }],
+});
+```
+
+✅ These relationships are handled using `.populate()` to fetch related data.
+
+---
+
+## 6., What are the available options for querying and manipulating data using Mongoose.js? Explain how to perform CRUD operations (create, read, update, delete) using Mongoose.js methods and queries.
+
+✅ Mongoose provides built-in methods to perform **CRUD operations**:
+
+-   **Create:** `Model.create()` or `new Model().save()`
+
+```js
+User.create({ name: "Alice", age: 25 });
+```
+
+-   **Read:** `Model.find()`, `Model.findById()`, `Model.findOne()`
+
+```js
+User.find({ age: 25 });
+```
+
+-   **Update:** `Model.updateOne()`, `Model.findByIdAndUpdate()`
+
+```js
+User.updateOne({ name: "Alice" }, { age: 26 });
+```
+
+-   **Delete:** `Model.deleteOne()`, `Model.findByIdAndDelete()`
+
+```js
+User.deleteOne({ name: "Alice" });
+```
+
+✅ These methods allow efficient querying and data manipulation in MongoDB.
+
+## 7., Explain the process of connecting to a MongoDB database using Mongoose.js. How can you configure and establish a connection to a MongoDB server using Mongoose.js in a Node.js application?
+
+**Mongoose.js** is an ODM (Object Data Modeling) library for MongoDB and Node.js.
+
+✅ **Basic Connection Setup:**
+
+```js
+const mongoose = require("mongoose");
+
+mongoose
+    .connect("mongodb://localhost:27017/mydb", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => console.log("Connected to MongoDB"))
+    .catch((err) => console.error("Connection error:", err));
+```
+
+✅ Mongoose simplifies schema creation, data validation, and queries in MongoDB.
+
+# -- MERN --
+
+## 1., Explain the concept of React Router. How does it enable client-side routing in React.js applications and facilitate the creation of multi-page-like experiences?
+
+-   ### **React Router**
+    React Router is a **routing library** for React that enables **client-side navigation**, creating multi-page-like experiences without full page reloads.
+
+### **How It Works:**
+
+✅ Uses the **History API** to update the URL dynamically.  
+✅ **Routes map** URLs to components, rendering based on the path.  
+✅ Supports **nested routes, redirects, and dynamic parameters**.
+
+### **Benefits:**
+
+✔ **Faster navigation** – No full page reloads.  
+✔ **Single Page Application (SPA)** – Feels like multiple pages.  
+✔ **Declarative Routing** – Easy-to-manage route components.
+
+## 2., Explain the concept of server-side routing in Express.js. How does Express handle incoming requests and route them to the appropriate API endpoints or route handlers?
+
+-   ### **Server-Side Routing in Express.js**
+    Express.js handles **server-side routing** by mapping **incoming requests** (URLs) to specific **route handlers**.
+
+### **How It Works:**
+
+✅ Uses `app.METHOD(PATH, HANDLER)` (e.g., `app.get('/users', handler)`).  
+✅ **Middleware & Controllers** process requests before sending responses.  
+✅ Supports **dynamic routes**, query params, and route grouping via `express.Router()`.
+
+### **Benefits:**
+
+✔ **Efficient API handling** for backend services.  
+✔ **Modular & Scalable** structure with routers.  
+✔ **Supports Middleware** for authentication, logging, etc.
+
+## Essential for **MERN** backend development! 🚀
+
+## 3., What is the MERN stack? Explain the individual components of the MERN stack and their role in building web applications.
+
+-   ### **MERN Stack**
+    MERN is a **JavaScript-based** tech stack for building full-stack web apps.
+
+### **Components & Roles:**
+
+✅ **MongoDB** – NoSQL database for storing data.  
+✅ **Express.js** – Backend framework for handling API requests.  
+✅ **React.js** – Frontend library for building UI.  
+✅ **Node.js** – Runtime for executing JavaScript on the server.
+
+## 💡 **MERN enables full-stack JavaScript development, making apps fast & scalable!** 🚀
+
+## 4., Explain how does a proxy works during React development. How can you tell the webpack dev server to proxy the requests to your backend? What kind of URLs you have to use in the fetch in your JS code, if you want to use the proxy.
+
+-   ### **Proxy in React Development**
+    A **proxy** helps bypass CORS issues by forwarding frontend requests to the backend during development.
+
+### **Setting Up Proxy in React:**
+
+1. Add to `package.json`:
+    ```json
+    "proxy": "http://localhost:5000"
+    ```
+2. Use **relative URLs** in `fetch` requests:
+    ```js
+    fetch("/api/data"); // Proxied to backend
+    ```
+
+### **How It Works:**
+
+✅ Webpack Dev Server **forwards** requests to `localhost:5000`.  
+✅ No need for full backend URLs in `fetch`.  
+✅ Simplifies API calls in development. 🚀
+
+---
+
+## 5., Explain the advantages and benefits of using the MERN stack for web development. How does each component of the MERN stack contribute to the development process and overall efficiency of building modern web applications?
+
+✅ The **MERN stack** is a full JavaScript solution for modern web apps.
+
+-   **MongoDB**: NoSQL database for flexible data storage
+-   **Express.js**: Handles backend routing and APIs
+-   **React.js**: Builds dynamic user interfaces
+-   **Node.js**: Runs JavaScript on the server
+
+✅ Benefits:  
+Fast development, reusable components, scalable architecture, and a unified language across the stack.
+
+---
+
+## 6., How does data flow in the MERN stack architecture? Explain how the frontend, built with React.js, communicates with the backend, developed with Node.js and Express.js, to handle client requests and serve data from the MongoDB database.
+
+✅ In the **MERN stack**, data flows from the **React frontend** to the **Node.js + Express backend** via HTTP requests (e.g., using `fetch`). The backend processes the request, interacts with the **MongoDB database** using **Mongoose**, and sends the response back to the frontend.
+
+➡️ React (Client) → Express (API) → MongoDB (Database) → Response → React (UI update)
+
+This architecture enables full-stack development using JavaScript across all layers.
