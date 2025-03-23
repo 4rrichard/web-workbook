@@ -15,7 +15,7 @@
 
 ---
 
-### **Block Scoping (ES6) vs Function Scoping**
+## 2., Explain the concept of "block scoping" introduced in ES6. How does it differ from function scoping?
 
 **Block scoping** (`let`, `const`) → Limited to `{}` blocks  
 **Function scoping** (`var`) → Limited to the whole function
